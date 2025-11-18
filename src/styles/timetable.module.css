@@ -1,0 +1,147 @@
+/* ===== 변수 & 레이아웃 ===== */
+.wrap{
+  /* 크기 고정값만 수정 */
+  --left-w: 60px;   /* 좌측 시간 칼럼 폭 (그대로) */
+  --colw: 68px;      /*  날짜 칼럼(셀 가로) */
+  --row-h: 32px;     /* 30분 셀 높이 */
+  --hour-h: 64px;    /* 1시간 라벨 높이 = row-h * 2 */
+  --header-h: 58px;  /* 헤더 높이 (그대로) */
+  /* --gap: 12px; */
+
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+}
+
+/* ===== 헤더: 좌우 이동만 (스크롤바 없음) ===== */
+.headRail{
+  position: sticky;
+  top: 0;
+  border: none;   
+  height: var(--header-h);
+  z-index: 5;
+}
+.headRow{
+  display: grid;
+  grid-template-columns: var(--left-w) 1fr; /* corner + header viewport */
+  align-items: stretch;
+}
+.corner{
+  width: var(--left-w);
+  height: var(--header-h);
+  background-color: white;
+  z-index: 2;
+}
+.headViewport{
+  position: relative;
+  overflow: hidden; /* 스크롤바 감춤, transform으로만 이동 */
+  height: var(--header-h);
+}
+.headInner{
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--colw));
+  will-change: transform;
+}
+
+.colHead{
+  padding: 8px 12px;
+  background: #fff;
+  display: flex; flex-direction: column; justify-content: center;
+  /* border-left: 1px solid #fafafa; */
+  height: var(--header-h);
+  text-align: center;
+}
+.dow{ font-size: 12px; color:#666; }
+/* .date{ font-weight: 700; } */
+
+/* ===== 본문: 좌측 세로만 이동 + grid는 양방향 스크롤 ===== */
+.body{
+  display: grid;
+  grid-template-columns: var(--left-w) 1fr;
+  align-items: stretch;
+  height: calc(100vh - var(--header-h) - var(--gap));
+  min-height: 320px;
+}
+
+/* 좌측 레일(세로만 이동) */
+.leftRail{ 
+  position: relative; 
+  border: none;    
+}
+.leftViewport{ position: relative; overflow: hidden; height: 100%; }
+.leftInner{
+  will-change: transform;
+}
+.hourLabel{
+  height: var(--hour-h);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color:#666;
+  /* border-bottom: 1px dashed #f0f0f0; */
+}
+
+/* grid: 단일 스크롤 소스 */
+.grid{
+  overflow: auto;
+  background: #fff;
+  /* border: 1px solid #eee; */
+  border-left: none;
+  height: 100%;
+  scrollbar-width: none;
+}
+.grid::-webkit-scrollbar{ display:none; }
+.grid.dragging{ cursor: crosshair; }
+
+.gridInner{ display: block; }
+
+.halfRow{
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--colw));
+  height: var(--row-h);          
+}
+
+/* 셀 기본 */
+.cell{
+  width: var(--colw);             /*  68px */
+  height: var(--row-h);           /*  32px */
+  background-color: #E7E6E8;
+  border: none;   
+  /* margin: 0 6px; */
+}
+.clickable{ cursor: pointer; }
+.active{ background-color: #FBB337; }
+
+/* 행: 홀수 1px, 짝수 4px(가로선) */
+.rOdd { 
+  border-top: 3px solid white; 
+  border-bottom: 2px solid white; 
+  border-radius: 8px 8px 0 0;
+}
+.rEven{ 
+  border-top: 1px solid white; 
+  border-bottom: 2px solid white; 
+  border-radius: 0 0 8px 8px;
+}
+
+/* 열: 홀수 1px, 짝수 4px(세로선) */
+.cOdd { 
+  border-left: 6px solid white; 
+  border-right: 6px solid white; 
+}
+.cEven{ 
+  border-left: 6px solid white; 
+  border-right: 6px solid white; 
+}
+
+/* 시간 라벨은 1시간 높이에 맞춤 */
+.leftCol{ display: grid; grid-auto-rows: var(--hour-h); }
+.hourLabel{
+  height: var(--hour-h);          /* 64px */
+  display: flex; 
+  align-items: start; 
+  justify-content: center;
+  font-size: 12px; 
+  color: black;
+  padding: 5px;
+  /* border-bottom: 1px dashed #f0f0f0; */
+}

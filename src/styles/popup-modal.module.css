@@ -1,0 +1,48 @@
+.backdrop{
+  position: fixed; inset:0;
+  background: var(--bg-dim);
+  z-index: 2100;
+}
+.wrap{
+  position: fixed; inset:0; z-index: 2101;
+  display: grid; place-items: center;
+  padding: 16px;
+}
+.card{
+  width: 372px; min-height: 119px;
+  background: #fff; border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0,0,0,.18);
+  padding: 16px;
+  display: grid; gap: 12px;
+}
+.body{ display: grid; gap: 8px; }
+.title{
+  margin:0; font-size: 16px; font-weight: 800; color: var(--black);
+}
+.desc{
+  margin:0; white-space: pre-line; color: #333; line-height: 1.5;
+}
+
+.footerRight{
+  display: flex; justify-content: flex-end;
+}
+.footerRow{
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+}
+
+/* Buttons */
+.btnGhost{
+  border: none; background: transparent;
+  color: var(--black); font-weight: 700;
+  padding: 10px 14px; border-radius: 10px;
+}
+.btnOutline{
+  border: 1px solid var(--gray-200);
+  background: #fff; color: var(--black);
+  font-weight: 700; border-radius: 10px; padding: 12px 0;
+}
+.btnPrimary{
+  border: none;
+  background: var(--accent); color: #fff;
+  font-weight: 800; border-radius: 10px; padding: 12px 0;
+}

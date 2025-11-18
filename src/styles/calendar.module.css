@@ -1,0 +1,81 @@
+.wrap{ }
+.header{ 
+  display:flex; 
+  justify-content:space-between; 
+  align-items:center; 
+  margin-bottom:15px; 
+  font-size: 15.8px;
+}
+.title{ font-weight:700; }
+.nav{ 
+  background:none; 
+  border:none; 
+  padding:4px 8px; 
+}
+.weekdays{ 
+  display:grid; 
+  grid-template-columns: repeat(7,1fr); 
+  gap:6px; 
+  margin:6px 0; 
+  color:#111; 
+}
+.weekdays > div{ text-align:center; font-size: 13.58px; color: gray; }
+
+.grid{
+  display:grid;
+  grid-template-columns: repeat(7,1fr);
+  gap:6px;
+  user-select:none;
+  touch-action: none;
+}
+
+.cell{
+  height:45.81px;
+  width:45.81px; 
+  border-radius:100%; 
+  display:flex; 
+  align-items:center; 
+  justify-content:center; 
+  position:relative; 
+  cursor:pointer; 
+  touch-action: none; 
+  font-size: 20.822px;
+}
+
+/* 이번 달이 아닌 날짜 = 연회색 텍스트 */
+.cell[data-inmonth="false"] .daynum{
+  color:#C7C6C9;
+}
+
+/* 숫자 기본 전환 */
+.daynum{ transition: color .12s, font-weight .12s; }
+
+/* 선택 효과: 대표색 적용 */
+.cell[data-selected]{
+  color: #FBB337;
+  font-size: 24.99px;
+  background-color: #FFF7E6;
+  /* 선택되더라도 오늘 점/외달 색상은 위 규칙으로 덮임 */
+}
+
+/* 오늘 표시 필요 시 여기에 점/링 등 추가 가능 */
+.cell[data-today]::after{
+  /* 예시:
+  content:"";
+  position:absolute;
+  bottom:6px;
+  width:6px; height:6px;
+  border-radius:50%;
+  background:#9aa0a6;
+  */
+}
+
+/* 오늘 날짜 표시 */
+.cell[data-today] .daynum {
+}
+
+/* 필요 시 클릭/드래그 막기 (선택 안 되게) */
+.cell:not([data-inmonth]) {
+  /* pointer-events: none; */ /* 필요하면 주석 해제 */
+  opacity: 0.5;
+}

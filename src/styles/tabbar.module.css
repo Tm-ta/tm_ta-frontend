@@ -1,0 +1,34 @@
+.wrap{ 
+    display:flex; 
+    border-bottom:1px solid #E2E1E4; 
+    width: 362px;
+}
+.tab{ 
+    background:none; 
+    width: 181px;
+    border:none; 
+    padding:12px 4px; 
+    color:#E7E6E8; 
+}
+
+.wrapModal{ 
+    /* display:flex;  */
+    border-bottom:1px solid var(--gray-200); 
+    /* gap:12px;  */
+    width: 402px;
+    padding-left: 20px;
+}
+.tabModal{ 
+    background:none; 
+    width: fit-content;
+    border:none; 
+    padding:12px 4px; 
+    color:#E7E6E8; 
+}
+
+
+.active{ 
+    color:#FBB337; 
+    border-bottom:3px 
+    solid #FBB337; 
+}
