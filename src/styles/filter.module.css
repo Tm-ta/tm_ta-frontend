@@ -1,0 +1,262 @@
+/* === 바닥 시트 공통 === */
+.backdrop{
+  position: fixed; inset: 0;
+  background: rgb(0 0 0 / 45%);
+  display: grid; 
+  place-items: end center; 
+  z-index: 1000;
+}
+
+.sheet{
+  width: 402px;    
+  border-radius: 16px 16px 0 0;
+  background: #fff;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow: hidden;
+}
+
+/* 필터 모달: 455px 높이 */
+.sheetFilter{
+  height: 455px;
+}
+.body{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.header{
+  position: relative;
+  padding: 20px 20px 25px 20px;
+  width: 402px;
+  height: 75px;
+  /* font-weight: 800; */
+  font-size: 23px;
+  display: flex;
+  justify-content: space-between;
+  /* border-bottom: 1px solid #eee; */
+}
+
+.headerTitle{
+  font-size: 24px;
+}
+.closeX{
+  background: none; 
+  border: none; 
+  font-size: 24px; 
+  line-height: 1;
+  cursor: pointer;
+}
+.tabSec{
+  width: 402px;
+  height: fit-content;
+}
+
+.range{
+  padding: 20px;
+  overflow: auto;
+  width: 402px;
+  height: 225px;
+  font-size: 16px;
+}
+.rangeTitle{
+  font-size: 19px;
+}
+
+/* === 참여자 체크박스(원형 체크) === */
+.pplWrap{ 
+  display: grid; 
+  gap: 12px; 
+}
+.checkGrid{ 
+  display: grid; 
+  grid-template-columns: repeat(2, minmax(0,1fr)); 
+  gap: 8px 12px; 
+}
+.checkRow{ 
+  display: inline-flex; 
+  align-items: center; 
+  gap: 8px; 
+  font-weight: 600; 
+}
+.circleCheck{
+  appearance: none;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 1px solid var(--gray-400, #c7c6c9);
+  display: inline-grid; 
+  place-items: center;
+  cursor: pointer;
+  background: #fff;
+}
+.circleCheck:checked{
+  border-color: #FBB337;
+  background-color:#FBB337;
+}
+.circleCheck:checked::after{
+  content: "";
+  width: 8px; height: 8px;
+  border: 2px solid #fff;
+  border-top: 0; border-left: 0;
+  transform: rotate(45deg);
+  display: block;
+}
+
+/* === 듀얼 범위 슬라이더 === */
+.rangeSection{ 
+  display: grid; 
+  gap: 10px; 
+}
+
+.rangeHead{ 
+  display:flex; 
+  justify-content:center; 
+}
+.rangeCurrent{ 
+  display:flex; 
+  align-items:center; 
+  gap:8px; 
+  font-weight:800; 
+}
+
+.rangeNote{ 
+  font-size: 12px; 
+  color: #666; 
+}
+
+.rangeFooter{
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  /* font-weight: 800; */
+}
+.rangeNow{ 
+  font-size: 10px;
+}
+.rangeDash{ 
+  opacity:.6; 
+  text-align:center; 
+}
+
+
+/* === 듀얼 범위 슬라이더 공통 === */
+.rangeWrap{ 
+  display: grid; 
+  gap: 10px; 
+  padding-top: 10px;
+}
+
+/* 비활성 공통 */
+.rangeDisabled{
+  --range-bg:#eee;
+  --range-fill:#ddd;            /* 0명일 때 회색 */
+  filter: grayscale(0.2);
+}
+
+.rangeTrack{
+  position: relative;
+  height: 12px;                 /* 트랙 높이 살짝 키움 */
+  border-radius: 999px;
+  background: var(--range-bg, #eee);
+  display:flex; align-items:center;
+  padding: 0 8px;
+}
+
+/* 겹치는 두 range input */
+.rangeInput{
+  -webkit-appearance: none;
+  appearance: none;
+  position: absolute; left: 0; right: 0;
+  width: 100%;
+  height: 32px;                 /* 트랙과 동일 */
+  background: transparent;
+  margin: 0;
+  pointer-events: none;         /* 기본은 안 잡고 */
+}
+.rangeInput::-webkit-slider-runnable-track{
+   height: 32px; 
+   background: transparent; 
+  }
+.rangeInput::-moz-range-track{ 
+  height: 32px; 
+  background: transparent; 
+}
+
+/* 핸들 더 크게 */
+.rangeInput::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  appearance: none;
+  pointer-events: auto;         /* 핸들이 포인터 가져감 */
+  width: 24px; height: 24px;    /* <-- 키움 */
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--accent, #FBB337);
+  box-shadow: 0 1px 4px rgba(0,0,0,.18);
+  margin-top: 4px;              /* (32-24)/2 */
+}
+.rangeInput::-moz-range-thumb{
+  pointer-events: auto;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--accent, #FBB337);
+  box-shadow: 0 1px 4px rgba(0,0,0,.18);
+}
+
+.radioCheck {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 12px 0 37px 20px;
+}
+
+.radioRow{ 
+  display:flex; 
+  gap:8px; 
+  padding:8px 0; 
+  border-radius:10px; 
+}
+.radioRow span{ color:#333; font-weight:600; }
+.radioRow input[type="radio"]{ 
+  appearance: none;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: #fff;                 
+  border: 0.6px solid #DBDADD;        
+  display: inline-block;
+  transition: border-color .15s, box-shadow .15s, background-color .15s;
+  cursor: pointer;
+}
+
+
+.radioRow input[type="radio"]:checked{
+  border: 5px solid #FBB337;
+  background: #fff;
+}
+
+
+/* === 푸터 === */
+.footer{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 20px;
+  border-top: 1px solid #eee;
+  height: 103px;
+}
+.reset{
+  border:none; background:#fff; border-radius:10px; padding:10px 12px;
+  width: 122px;
+  height: 56px;
+}
+.apply{
+  border:1px solid #FBB337; background-color: white; color:#FBB337; font-weight:800; border-radius:10px; padding:10px 12px;
+  width: 220px;
+  height: 56px;
+}
+
+
+/* 비활성 시 핸들 숨김(표시만) */
+.thumbHidden::-webkit-slider-thumb{ visibility: hidden; }
+.thumbHidden::-moz-range-thumb{ visibility: hidden; }

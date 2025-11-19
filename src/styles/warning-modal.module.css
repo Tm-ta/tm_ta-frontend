@@ -1,0 +1,77 @@
+/* 반투명 배경 */
+.backdrop{
+  /* position: fixed;
+  inset: 0;
+  background: #1F1F1FE5; /* 요구사항 배경 */
+  z-index: 9998;
+}
+
+/* 빅 모달: 화면 정중앙 */
+.big{
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 9999;
+  pointer-events: none; /* 배경 클릭 닫기만 허용하려면 bigInner에만 pointer-events */
+}
+.bigInner{
+  pointer-events: auto;
+  width: 260px;
+  min-height: 90px;           /* 세로는 컨텐츠에 따라 늘어남 */
+  padding: 20px 18px;
+  border-radius: 6px;
+  background-color: #1F1F1FE5;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  text-align: center;
+}
+.bigIcon{
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+.bigText{
+  margin: 0;
+  white-space: pre-wrap;
+  line-height: 1.35;
+  color: white;
+  /* font-weight: 700; */
+}
+
+/* 스몰 토스트: 하단 위 100px */
+.small{
+  position: fixed;
+  left: 50%;
+  bottom: 100px;
+  transform: translateX(-50%);
+  z-index: 9999;
+}
+.smallInner{
+  width: 372px;
+  min-height: 45px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #fff;
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+.smallIcon{
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+.smallText{
+  margin: 0;
+  color: #111;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* 스크롤바 숨김(필요시) */
+.big::-webkit-scrollbar,
+.small::-webkit-scrollbar{ display:none; }

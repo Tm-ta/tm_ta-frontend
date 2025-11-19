@@ -1,0 +1,73 @@
+/* 필요시 전역으로도 설정 가능: :root { --item-h: 48px; } */
+
+.wrap{
+  display:flex; 
+  align-items:center; 
+  /* gap:8px; */
+  /* border:1px solid var(--gray-200); */
+   border-radius:12px; 
+   /* padding:8px; */
+   margin-bottom: 28px;
+}
+.sep{ padding:0 6px; }
+
+.colWrap{
+  position:relative;
+  flex:1;
+  /* ⬇️ 형제(.col, .centerBox) 모두에서 쓰이도록 여기서 선언 */
+  --item-h: 48px;
+  box-sizing: border-box;
+  width: 181px;
+}
+
+.col{
+  width: 181px;
+  height: calc(var(--item-h, 48px) * 3);   /* 항상 3줄만 보이게 */
+  overflow-y:auto;
+  scroll-snap-type:y mandatory;
+  scroll-snap-stop: always;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  padding: 0;
+  margin: 0;
+  -ms-overflow-style: none;      /* IE, Edge */
+  scrollbar-width: none;         /* Firefox */
+}
+.col::-webkit-scrollbar{ display:none; }   /* Chrome/Safari */
+
+.item{
+  height: var(--item-h, 48px);
+  display:flex; 
+  align-items:center; 
+  justify-content:center;
+  scroll-snap-align:center;
+  color:gray;
+  user-select:none;
+  cursor: pointer;
+}
+.active{
+  color: #FBB337;
+  /* font-weight:800; */
+  background-color: #FFF7EB;
+  border-radius: 6px;
+}
+
+.blank{ height: var(--item-h, 48px); }   /* 위/아래 빈칸 */
+
+.centerBox{
+  position: absolute;
+  left: 6px; right: 6px;
+  top: 50%;
+  height: var(--item-h);         
+  transform: translateY(-50%);
+  /* border-radius: 8px; */
+  /* background-color: #FFF7EB;     */
+  /* outline: 1px dashed rgba(216, 27, 96, 0.45); */
+  pointer-events: none;
+  z-index: 2;
+}
+
+.activeSuffix{
+  color: #000;      /* 접미사만 검정 */
+  margin-left: 4px; /* 시간과 살짝 띄움 */
+}
