@@ -37,6 +37,7 @@ export function buildOverlapMap(
 export function computeActiveSlots(params: {
   overlapMap: Map<string, number>;
   minPeople: number;
+  // maxPeople: number;
   allowedDays: 'all' | Set<number>;
   dateKeys: string[];
   startHour: number; // inclusive

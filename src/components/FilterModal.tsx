@@ -11,7 +11,7 @@ export type FilterState = {
   days: ('월'|'화'|'수'|'목'|'금'|'토'|'일')[] | 'all';
   minDurationMin: number;
   maxDurationMin: number;
-  maxPeopleSelected?: number;
+  maxPeople: number;
 };
 
 export default function FilterModal({
@@ -41,10 +41,10 @@ export default function FilterModal({
   const maxCap = Math.max(1, maxPeople || 1);
 
   const [peopleRange, setPeopleRange] = useState<[number, number]>([
-    Math.max(1, state.minPeople || 1),
-    Math.min(maxCap, state.maxPeopleSelected ?? maxCap),
+    Math.max(1, state.minPeople),
+    Math.min(maxCap, state.maxPeople ?? maxCap),
   ]);
-
+  // console.log(state.maxPeopleSelected)
   const [durRange, setDurRange] = useState<[number, number]>([
     Math.max(30, state.minDurationMin || 30),
     Math.min(300, state.maxDurationMin ?? 300),
@@ -56,7 +56,7 @@ export default function FilterModal({
 
     // peopleRange 동기화(클램프)
     const loP = Math.max(1, state.minPeople || 1);
-    const hiP = Math.min(maxCap, state.maxPeopleSelected ?? maxCap);
+    const hiP = Math.min(maxCap, state.maxPeople ?? maxCap);
     const loP2 = Math.min(loP, hiP);
     const hiP2 = Math.max(loP, hiP);
     setPeopleRange([loP2, hiP2]);
@@ -200,7 +200,7 @@ export default function FilterModal({
                   value={durRange}
                   onChange={(next)=>{
                     const lo = Math.max(30, Math.min(next[0], next[1]));
-                    const hi = Math.max(lo, Math.min(next[1], 300));
+                    const hi = Math.max(lo, Math.min(next[1], 300)); 
                     setDurRange([lo, hi]);
                   }}
                   formatLabel={(min)=>{
@@ -229,7 +229,7 @@ export default function FilterModal({
               onApply({
                 ...draft,
                 minPeople: minP,
-                maxPeopleSelected: maxP,   // 상한을 보존
+                maxPeople: maxP,   // 상한을 보존
                 minDurationMin: minDur,
                 maxDurationMin: maxDur,
               });

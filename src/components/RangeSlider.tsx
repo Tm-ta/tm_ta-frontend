@@ -30,15 +30,16 @@ export default function RangeSlider({
 }) {
   const [lo, setLo] = useState(value[0]);
   const [hi, setHi] = useState(value[1]);
+  // console.log(value)
 
   useEffect(()=>{ 
     // min/max 변화까지 고려해서 항상 클램프
     const nextLo = Math.max(min, Math.min(max, value[0]));
     const nextHi = Math.max(nextLo, Math.min(max, value[1]));
+    // console.log(nextLo, max, value[1])
     setLo(nextLo);
     setHi(nextHi);
   }, [value, min, max]);
-
   const clamp = (n:number)=> Math.max(min, Math.min(max, n));
   const snap  = (n:number)=> Math.round(n/step)*step;
 
@@ -88,7 +89,7 @@ export default function RangeSlider({
     return { background: bg };
   }, [disabled, fillWhenDisabled, lo, hi, min, max, gradient]);
 
-  console.log("min", min, lo, value);
+  // console.log("min", min, lo, value);
 
   return (
     <div className={styles.rangeWrap + (disabled ? ' '+styles.rangeDisabled : '')}>
