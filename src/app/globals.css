@@ -150,8 +150,8 @@ input, select, textarea { font: inherit; }
 
 .body-area{
   position: fixed;
-  top: 217px;
-  height: calc(100vh - 217px - 90px);
+  /* top: 217px; */
+  height: calc(100vh - 200px - 90px);
   width: 362px;
   overflow: scroll;
   scrollbar-width: none;
