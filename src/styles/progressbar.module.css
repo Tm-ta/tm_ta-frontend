@@ -7,7 +7,7 @@
 .track{ 
     flex:1; 
     height:10px; 
-    background-color:var(--gray-200); 
+    background: #E7E6E8; 
     border-radius:999px; 
     overflow:hidden; 
 }
