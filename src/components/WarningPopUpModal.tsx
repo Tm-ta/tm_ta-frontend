@@ -2,7 +2,6 @@
 'use client';
 import { useEffect } from 'react';
 import styles from '@/styles/warning-modal.module.css';
-import error from 'public/error.png';
 
 type WarningType = 'big' | 'small';
 
@@ -46,8 +45,6 @@ export default function WarningPopUpModal({
       ) : (
         <div role="status" className={styles.small}>
           <div className={styles.smallInner}>
-            {/* <img className={styles.smallIcon} src={iconSrc} alt={iconAlt} /> */}
-            
             <p className={styles.smallText}>{message}</p>
           </div>
         </div>

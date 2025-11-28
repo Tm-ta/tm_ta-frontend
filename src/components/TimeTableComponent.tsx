@@ -207,7 +207,7 @@ export default function TimeTable({
                   <div className={styles.dow}>
                     {['일', '월', '화', '수', '목', '금', '토'][new Date(dates[i]).getDay()]}
                   </div>
-                  <div className={styles.date}>{format(dates[i], 'MM/dd')}</div>
+                  <div className={styles.date}>{format(dates[i], 'MM.dd')}</div>
                 </div>
               ))}
             </div>

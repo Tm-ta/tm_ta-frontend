@@ -6,6 +6,11 @@ export default {
     "./components/**/*.{ts,tsx}",
     "./styles/**/*.{css}"
   ],
-  theme: { extend: {} },
+  theme: { 
+    extend: {
+      fontFamily: {
+        sans: ['var(--font-suit)', 'system-ui', '-apple-system'],
+      },
+  } },
   plugins: [],
 } satisfies Config;

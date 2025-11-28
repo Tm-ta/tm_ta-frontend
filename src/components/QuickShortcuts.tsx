@@ -32,13 +32,20 @@ export default function QuickShortcuts({
       {presets.map(p => {
         const active = value === p.key;
         return (
-          <button key={p.key}
+          <button
+            key={p.key}
             className={clsx(styles.item, active && styles.active)}
             onClick={() => {
-              if(type==='date') onApply({ key:p.key, range: computeDatePreset(p.key) });
-              else onApply({ key:p.key, start:p.start, end:p.end });
+              if (active) {
+                onApply({ key: null, clear: true });
+              } else {
+                if (type === 'date') onApply({ key: p.key, range: computeDatePreset(p.key) });
+                else onApply({ key: p.key, start: p.start, end: p.end });
+              }
             }}
-          >{p.title}</button>
+          >
+            {p.title}
+          </button>
         );
       })}
     </div>

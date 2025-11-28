@@ -1,25 +1,36 @@
-import { addDays, eachDayOfInterval, endOfMonth, format, nextSunday, startOfMonth } from 'date-fns';
+import {
+  addDays, eachDayOfInterval, endOfMonth, format, isBefore, isSaturday, isSunday,
+  startOfDay, startOfMonth, startOfWeek
+} from 'date-fns';
 
-export function toDateKey(d: Date){ return format(d, 'yyyy-MM-dd'); }
+const key = (d: Date) => format(d, 'yyyy-MM-dd');
 
-export function computeDatePreset(key:string){
-  const today = new Date();
-  if(key==='d+7'){
-    const start = addDays(today, 1); const end = addDays(today, 7);
-    return eachDayOfInterval({ start, end }).map(toDateKey);
+export function computeDatePreset(preset: string): string[] {
+  const today0 = startOfDay(new Date());
+
+  if (preset === 'd+7' || preset === 'd+14') {
+    const days = preset === 'd+7' ? 7 : 14;
+    const from = addDays(today0, 1);        // 내일부터
+    const to = addDays(from, days - 1);     // 총 days일
+    return eachDayOfInterval({ start: from, end: to }).map(key);
   }
-  if(key==='d+14'){
-    const start = addDays(today, 1); const end = addDays(today, 14);
-    return eachDayOfInterval({ start, end }).map(toDateKey);
+
+  if (preset === 'wkndThisMonth') {
+    const m0 = startOfMonth(today0);
+    const m1 = endOfMonth(today0);
+    return eachDayOfInterval({ start: m0, end: m1 })
+      .filter(d => (isSaturday(d) || isSunday(d)) && !isBefore(startOfDay(d), today0)) // 지난 날짜 제외
+      .map(key);
   }
-  if(key==='nextSun'){
-    const end = nextSunday(today); const start = addDays(today, 1);
-    return eachDayOfInterval({ start, end }).map(toDateKey);
+
+  if (preset === 'nextSun') {
+    // "다음주 일요일": 주 시작을 월요일로 해석
+    const mondayThisWeek = startOfWeek(today0, { weekStartsOn: 1 });
+    const targetSunday = addDays(mondayThisWeek, 13);
+    const from = addDays(today0, 1); // 내일부터 ~ 타겟 일요일까지
+    return eachDayOfInterval({ start: from, end: targetSunday }).map(key);
   }
-  if(key==='wkndThisMonth'){
-    const start = startOfMonth(today); const end = endOfMonth(today);
-    const days = eachDayOfInterval({ start, end });
-    return days.filter(d => [0,6].includes(d.getDay())).map(toDateKey);
-  }
-  return [] as string[];
+
+  // 기본(안전)
+  return [];
 }

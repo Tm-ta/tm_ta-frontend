@@ -1,6 +1,5 @@
 'use client';
 import { useState } from 'react';
-import { Button } from '@/components/ButtonComponent';
 import HideOnScrollBar from '@/components/HideOnScroll';
 
 export default function Page(){

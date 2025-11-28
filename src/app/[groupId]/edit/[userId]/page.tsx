@@ -18,8 +18,10 @@ export default function EditPage() {
 
   const [warnOpen, setWarnOpen] = useState(false);
   const [warnMsg, setWarnMsg] = useState('');
-  const [warnIcon, setWarnIcon] = useState<string | undefined>(undefined);
-  const openWarn = (msg: string, icon?: string) => { setWarnMsg(msg); setWarnIcon(icon); setWarnOpen(true); };
+  const openWarn = (msg: string) => { 
+    setWarnMsg(msg); 
+    setWarnOpen(true); 
+  };
 
   // 축/날짜 유추
   const [dateObjs, setDateObjs] = useState<Date[]>([]);
@@ -126,7 +128,6 @@ export default function EditPage() {
           size="lg"
           shape="rounded"
           title="완료"
-          accent={'yellow'}
           onClick={async () => {
             const body: UserAvailable = {
               availableDateTime: Array.from(slotKeysSet).map(k=>{

@@ -20,12 +20,10 @@ const [count, setCount] = useState(0);
 
 const [warnOpen, setWarnOpen] = useState(false);
 const [warnMsg, setWarnMsg] = useState('');
-const [warnIcon, setWarnIcon] = useState<string | undefined>(undefined);
 
-const openWarn = (msg: string, icon?: string) => {
-setWarnMsg(msg);
-setWarnIcon(icon);
-setWarnOpen(true);
+const openWarn = (msg: string) => {
+  setWarnMsg(msg);
+  setWarnOpen(true);
 };
 
 // 선택 슬롯 세트 + 렌더 배열
@@ -102,7 +100,7 @@ return (
       <button onClick={()=> router.push(`/${groupId}`)} style={{ backgroundColor:'white', border:'none', width:'40px', height:'40px', padding: 0, display:'flex', justifyContent:'left'}}>
         <img src='/icons/left.png' style={{height:'20px'}}/>
       </button>
-      <div style={{fontSize:'28px', marginBottom: 8}}>
+      <div style={{fontSize:'28px', fontWeight:800, marginBottom: 12}}>
         약속에 참여할 수 있는 <br/> 시간을 선택해주세요
       </div>
 
@@ -110,6 +108,7 @@ return (
       <div style={{ display:'flex', gap:8 }}>
         <button
           className='blankBtn'
+          style={{fontWeight:600}}
           onClick={()=>{
             const all = buildAllSlotKeys();
             setSlotKeysSet(new Set(all));
@@ -117,6 +116,7 @@ return (
         >전체선택</button>
         <button
           className='blankBtn'
+          style={{fontWeight:600}}
           onClick={()=> setSlotKeysSet(new Set())}
         >전체취소</button>
       </div>
@@ -138,12 +138,11 @@ return (
       <Button
         size="lg"
         shape="rounded"
-        title="일정 등록하기"
-        accent={'pink'}
+        title="다음"
         disabled={ !validName}
         onClick={() => {
           if (selectedSlots.length === 0) {
-              openWarn('약속을 정할 기간을 선택해주세요', '/icons/warn-emoji.png');
+              openWarn('약속을 정할 기간을 선택해주세요');
               return;
           }
           const slotKeys = Array.from(slotKeysSet);

@@ -1,3 +1,15 @@
-.wrap{ display:flex; flex-wrap:wrap; gap:8px; }
-.item{ border:1px solid #E2E1E4; border-radius:7px; background:#fff; color:#111; font-size: 12px; }
+.wrap{ 
+    display:flex;
+     flex-wrap:wrap; 
+     gap:8px; 
+    }
+.item{ 
+    border:1px solid #E2E1E4; 
+    border-radius:7px; 
+    background:#fff; 
+    color:#111; 
+    font-size: 12px; 
+    height: 24px;
+    font-weight: 600;
+}
 .active{ border-color:#FBB337; color:#FBB337; font-weight:700; }

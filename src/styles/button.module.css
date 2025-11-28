@@ -1,10 +1,13 @@
 .btn{ 
     width:100%; 
     border:none; 
-    background:#fff; 
+    /* background:#fff;  */
     /* color:#fff;  */
     padding:14px 16px; 
     font-weight:600; 
+    border-radius:12px; 
+    background-color: #FBB337; 
+    color:white;
 }
 .lg{ 
     font-size:18px; 
@@ -16,6 +19,9 @@
     padding:12px; 
     width: 232px;
     height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .sm{ 
     font-size:14px; 
@@ -24,20 +30,21 @@
     width: 56px;
     height: 56px;
     border: 1px solid #FBB337;
+    border-radius:10px; 
 }
 .square{ 
-    border-radius:8px; 
+    /* border-radius:8px;  */
 }
 .rounded{ 
     border-radius:12px; 
 }
-.pink{ 
-    background:#FBB337; 
-    color:white; 
-    /* border-color:var(--pink-600);  */
+.white{ 
+    background-color: white; 
+    color:#FBB337; 
+    border: 1px solid #FBB337;
 }
-.yellow{ 
-    background: #FBB337; 
+.orange{ 
+    background-color: #FBB337; 
     color:white;
     /* border-color:var(--yellow-600);  */
 }
@@ -47,4 +54,9 @@
   height: 20px;
   display: inline-block;
   vertical-align: middle;
+}
+.frontIcon{
+    height: 24px;
+    width: 24px;
+    margin-right: 8px;
 }

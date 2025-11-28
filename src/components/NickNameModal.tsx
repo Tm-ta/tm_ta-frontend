@@ -24,6 +24,7 @@ export default function NickNameModal({
 }: NameModalProps) {
   const [name, setName] = useState(defaultName);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const [submitted, setSubmitted] = useState(false);
 
   // 상태 판정
   // 1) 빈값, 2) 정상(1..maxLen, 비중복), 3) 길이 초과, 4) 중복
@@ -49,13 +50,7 @@ export default function NickNameModal({
   useEffect(() => {
     if (!open) return;
     setName(defaultName);
-    // 다음 프레임에 포커스(+전체선택)
-    const t = setTimeout(() => {
-      // ref는 InputComponent 내부 input을 직접 참조하지 않으니,
-      // 모달 열릴 때 자동 포커스가 필요하면 autofocus를 InputComponent 쪽에
-      // 추가 prop으로 확장하거나 여기서는 생략
-    }, 0);
-    return () => clearTimeout(t);
+    setSubmitted(false); // ⬅ 모달 열릴 때 제출 상태 리셋
   }, [open, defaultName]);
 
   if (!open) return null;
@@ -64,7 +59,7 @@ export default function NickNameModal({
     <div className={styles.backdrop} role="dialog" aria-modal="true" onClick={onClose}>
       <div className={styles.panel} onClick={(e)=>e.stopPropagation()}>
         <header className={styles.header}>
-          <h2 className={styles.title}>내 이름은 이렇게 표시돼요</h2>
+          <span className={styles.title}>내 이름은 <br/> 이렇게 표시돼요</span>
           <p className={styles.sub}>이름은 자유롭게 수정할 수 있어요!</p>
           {/* 수정 가능할 경우 활성화 */}
           {/* <button className={styles.close} onClick={onClose} aria-label="close">✕</button> */}
@@ -78,7 +73,7 @@ export default function NickNameModal({
               value={name}
               onChange={setName}
               placeholder="닉네임을 입력해주세요"
-              error={errorMsg}            // 상태에 따라 문구/디자인 제어
+              error={submitted ? errorMsg : null}            // 상태에 따라 문구/디자인 제어
             />
           </div>
         </div>
@@ -88,9 +83,11 @@ export default function NickNameModal({
             size='lg'
             shape='square'
             title='다음'
-            accent='pink'
-            disabled={!valid}
-            onClick={() => valid && onSubmit(name.trim())}
+            // disabled={!valid}
+            onClick={() => {
+              setSubmitted(true); 
+              if (valid) onSubmit(name.trim());
+            }}
           />
         </div>
       </div>

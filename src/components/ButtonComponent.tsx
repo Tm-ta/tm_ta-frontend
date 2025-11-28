@@ -4,17 +4,18 @@ import clsx from 'clsx';
 import React from 'react';
 
 type Size = 'sm' | 'md' | 'lg';
+type type = 'orange' | 'white' | 'icons';
 export type Shape = 'square' | 'rounded';
 
 export function Button({
   size = 'md',
   shape = 'square',
+  type = 'orange',
   title,
   onClick,
-  disabled,
-  accent
+  disabled
 }:{
-  size?: Size; shape?: Shape; title: string; onClick?: () => void; disabled?: boolean; accent?: 'pink'|'yellow';
+  size?: Size; shape?: Shape; title: string; onClick?: () => void; disabled?: boolean; type?: 'orange'|'white'|'icons';
 }){
   // 타이틀에 따른 아이콘 매핑
   const iconSrc =
@@ -33,7 +34,7 @@ export function Button({
         styles.btn,
         styles[size],
         styles[shape],
-        accent && styles[accent],
+        styles[type],
         disabled && styles.disabled
       )}
       onClick={onClick}
@@ -41,6 +42,18 @@ export function Button({
       aria-label={ariaLabel}
       title={ariaLabel}
     >
+      { type === 'icons' ?
+        (<img
+          src='/icons/plus.png'
+          alt={ariaLabel}
+          className={styles.frontIcon}
+          width={20}
+          height={20}
+          draggable={false}
+        />) :
+        ( <></>)
+
+      }
       {iconSrc ? (
         <img
           src={iconSrc}
@@ -53,6 +66,7 @@ export function Button({
       ) : (
         title
       )}
+      
     </button>
   );
 }
