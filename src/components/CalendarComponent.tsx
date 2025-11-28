@@ -10,6 +10,8 @@ import {
   isSameMonth,
   startOfMonth,
   startOfWeek,
+  isBefore,
+  startOfDay
 } from 'date-fns';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
@@ -27,6 +29,7 @@ export default function Calendar({
   initialDate?: Date;
 }) {
   const [cursor, setCursor] = useState<Date>(initialDate);
+  const today0 = useMemo(() => startOfDay(new Date()), []);
 
   // 달력 매트릭스 (일~토)
   const matrix = useMemo(() => {
@@ -83,7 +86,8 @@ export default function Calendar({
     return keyAttr ? Number(keyAttr) : null;
   }
 
-  function onPointerDownCell(k: number, e: React.PointerEvent) {
+  function onPointerDownCell(k: number, e: React.PointerEvent, disabled: boolean) {
+    if (disabled) return;
     e.preventDefault(); // 모바일 이중 클릭 방지
     (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
 
@@ -167,6 +171,8 @@ export default function Calendar({
           const inMonth = isSameMonth(day, cursor);
           const isToday = isSameDay(day, new Date());
           const isSelected = selectedSet.has(k);
+          const isPast = isBefore(startOfDay(day), today0);
+          const disabled = isPast; 
 
           return (
             <div
@@ -176,7 +182,8 @@ export default function Calendar({
               data-inmonth={inMonth || undefined}
               data-selected={isSelected || undefined}
               data-today={isToday || undefined}
-              onPointerDown={(e) => onPointerDownCell(k, e)}
+              data-disabled={disabled ? 'true' : undefined}
+              onPointerDown={(e) => onPointerDownCell(k, e, disabled)}
             >
               <div className={styles.daynum}>{day.getDate()}</div>
             </div>

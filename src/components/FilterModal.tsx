@@ -220,7 +220,10 @@ export default function FilterModal({
         </div>
 
         <div className={styles.footer}>
-          <button className={styles.reset} onClick={onReset}>필터 초기화</button>
+          <button className={styles.reset} onClick={onReset}>
+            <img src='/icons/reset.png' style={{width:'20px', height:'20px', marginRight:4}}/>
+            초기화
+          </button>
           <button
             className={styles.apply}
             onClick={()=>{
@@ -236,7 +239,7 @@ export default function FilterModal({
               onClose();
             }}
           >
-            적용
+            적용하기
           </button>
         </div>
       </div>

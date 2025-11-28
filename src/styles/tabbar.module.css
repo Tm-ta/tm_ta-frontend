@@ -1,11 +1,11 @@
 .wrap{ 
     display:flex; 
     border-bottom:1px solid #E2E1E4; 
-    width: 362px;
+    width: 100%;
 }
 .tab{ 
     background:none; 
-    width: 181px;
+    width: 50%;
     border:none; 
     padding:12px 4px; 
     color:#E7E6E8; 

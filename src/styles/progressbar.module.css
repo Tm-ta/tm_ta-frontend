@@ -2,13 +2,12 @@
     display:flex; 
     align-items:center; 
     gap:10px; 
-    margin-bottom: 28px;
     padding: 10px 0;
 }
 .track{ 
     flex:1; 
     height:10px; 
-    background:var(--gray-200); 
+    background-color:var(--gray-200); 
     border-radius:999px; 
     overflow:hidden; 
 }

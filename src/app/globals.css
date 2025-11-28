@@ -10,6 +10,16 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  font-family: 'SUIT Variable';
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/SUIT-Variable.woff2') format('woff2'); 
+}
+
+:root { --font-suit: 'SUIT Variable', system-ui, -apple-system; }
+
 :root { 
   color-scheme: light only; 
   --radius: 0.625rem; 
@@ -61,8 +71,13 @@ button {
 input, select, textarea { font: inherit; }
 
 .container { 
+  width: 100vw; 
   max-width: 402px; 
-  margin: 0 auto; padding: 20px; height: 100vh; }
+  margin: 0 auto; 
+  padding: 20px; 
+  height: 100vh; 
+  overflow: hidden;
+}
 .row { 
   display: flex; 
   gap: 12px; 
@@ -150,6 +165,21 @@ input, select, textarea { font: inherit; }
   border-radius: 7px;
   border: 1px solid #E2E1E4;
   padding: 0;
+}
+
+.backBtn {
+  height:50px;
+  width:calc(100vw - 40px);
+  display:flex;
+  align-items: center;
+}
+.headerTitle{
+  font-size: 28px;
+  font-weight: 800;
+  height: 90px;
+  padding: 10px 0;
+  margin-bottom: 12px;
+  margin-top: 8px;
 }
 /* Step accent helpers */
 .step-date .accent { color: var(--pink-600); }

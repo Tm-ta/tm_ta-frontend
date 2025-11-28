@@ -20,7 +20,6 @@ const [activeShortcut, setActiveShortcut] = useState<string|null>(null);
 // 워닝 모달 상태
 const [warnOpen, setWarnOpen] = useState(false);
 const [warnMsg, setWarnMsg] = useState('');
-const [warnIcon, setWarnIcon] = useState<string | undefined>(undefined);
 
 const createGroup = useAppStore(s=>s.createGroup);
 const router = useRouter();
@@ -34,26 +33,30 @@ const today0 = startOfDay(new Date());
 
 const openWarn = (msg: string, icon?: string) => {
   setWarnMsg(msg);
-  setWarnIcon(icon);
   setWarnOpen(true);
 };
 
 return (
   <div>
-  <div style={{height:'50px', width:'362px', display:'flex', alignItems:'center', marginTop:'60px'}}>
-  {step===2 ? (
-    <button onClick={()=>setStep(1)} style={{ backgroundColor:'white', border:'none', width:'40px', height:'40px', padding: 0, display:'flex', justifyContent:'left'}}>
-      <img src='/icons/left.png' style={{height:'20px'}}/>
-    </button>
-  ) : null}
-  </div>
+    <div className='backBtn'>
+    {step===2 ? (
+        <img src='/icons/left.png'onClick={()=>setStep(1)}  style={{height:'20px'}}/>
+    ) : null}
+    </div>
     <div className={step===1? 'step-date':'step-time'}>
       <ProgressBar totalSteps={2} current={step===1?1:2}/>
-      <h1 style={{ fontSize:28, marginBottom: 0 }}>{title}</h1>
-      <h1 style={{ fontSize:28, margin:'0 0 22px 0' }}>선택해주세요</h1>
+      <div className='headerTitle'>
+        <span>{title} <br/> 선택해주세요</span>
+      </div>
       <div className="section">
         {step===1 ? (
-          <Calendar value={dates} onChange={setDates} />
+          <Calendar 
+            value={dates} 
+            onChange={(next) => {
+              if (activeShortcut) setActiveShortcut(null); 
+              setDates(next);
+            }} 
+          />
         ) : (
           <HourRangeWheel
             start={time.start}
@@ -70,13 +73,18 @@ return (
           type={step===1? 'date':'time'}
           value={activeShortcut}
           onApply={(p:any)=>{
-            if(step===1){
-              setActiveShortcut(p.key);
+            if (p.clear) {
+              setActiveShortcut(null);
+              if (step===1) setDates([]);                  
+              else setTime({ start:'00:00', end:'24:00' });
+              return;
+            }
+            setActiveShortcut(p.key);
+            if (step===1){
               const nextDates = p.range.map((k:string)=> new Date(k));
               setDates(nextDates);
               console.log('[Shortcut:date] 적용:', nextDates.map((d:any)=> format(d,'yyyy-MM-dd')));
             } else {
-              setActiveShortcut(p.key);
               setTime({ start:p.start, end:p.end });
               console.log('[Shortcut:time] 적용:', { start:p.start, end:p.end });
             }
@@ -89,14 +97,13 @@ return (
             size='lg'
             shape='square'
             title='다음'
-            accent='pink'
             onClick={()=>{
               if(dates.length === 0){
                 openWarn('약속을 정할 기간을 선택해주세요', '/icons/warn-emoji.png');
                 return;
               }
               if(hasPastDate){
-                openWarn('날짜 선택에 문제가 발생했어요\\n다시 시도해주세요', '/icons/warn-emoji.png');
+                openWarn('날짜 선택에 문제가 발생했어요 \n 다시 시도해주세요', '/icons/warn-emoji.png');
                 setDates([]);
                 return;
               }
@@ -109,7 +116,6 @@ return (
             size='lg'
             shape='square'
             title='완료'
-            accent='yellow'
             onClick={()=>{
               console.log('선택된 시간:', time);
               const groupId = createGroup(dates.map(d=>format(d,'yyyy-MM-dd')), time.start, time.end);

@@ -21,7 +21,6 @@ import {
   computeActiveSlots,
 } from '@/lib/overlap';
 import SendReviewModal from '@/components/SendReviewModal';
-import { fi } from 'date-fns/locale';
 
 export default function GroupPage() {
 const { groupId } = useParams<{ groupId: string }>();
@@ -29,7 +28,7 @@ const group = useAppStore((s) => s.groups[groupId]);
 // const setFilter = useAppStore((s) => s.setFilter);
 
 // 2초 후 공유 호출
-useShareOnMount();
+// useShareOnMount();
 
 // 안전 기본값
 const safeGroup = group ?? {
@@ -74,6 +73,7 @@ const endHour = parseInt(safeGroup.end.slice(0, 2), 10);
 // 참여자
 const allNames = safeGroup.participants;
 const hasData = !!group && allNames.length > 0;
+console.log(allNames, hasData);
 
 const [openReview, setOpenReview] = useState(false);
 const [lastFeedback, setLastFeedback] = useState<string>('');
@@ -137,7 +137,7 @@ return (
   <div>
     <div className="stickyTop">
       <div className="spread" style={{ marginBottom: 8 }}>
-        <h1 style={{ margin: 0 }}>약속 현황</h1>
+        <span style={{ margin: 0, fontSize:'24px', fontWeight:'800' }}>약속 현황</span>
         <ParticipantsPopover names={allNames} onEdit={() => location.assign(`/${groupId}/add`)} />
       </div>
       <TabBar
@@ -149,28 +149,30 @@ return (
         active={tab}
         onChange={(k) => setTab(k as 'table' | 'list')}
       />
-      {tab === 'table' ? (
-        <div>
-          <FilterBar
-          mode="table"
-          onOpenFilterTab={(t) => {
-          setFilterInitialTab(t);
-          setOpenFilter(true);
-          }}
-          onOpenSort={() => {}}
-          />
-        </div>
-      ) : (
-        <div>
-          <FilterBar
-          mode="list"
-          onOpenFilterTab={(t) => {
-          setFilterInitialTab(t);
-          setOpenFilter(true);
-          }}
-          onOpenSort={() => setOpenSort(true)}
-          />
-        </div>
+      {allNames.length > 0 && (
+        tab === 'table' ? (
+          <div>
+            <FilterBar
+              mode="table"
+              onOpenFilterTab={(t) => {
+                setFilterInitialTab(t);
+                setOpenFilter(true);
+              }}
+              onOpenSort={() => {}}
+            />
+          </div>
+        ) : (
+          <div>
+            <FilterBar
+              mode="list"
+              onOpenFilterTab={(t) => {
+                setFilterInitialTab(t);
+                setOpenFilter(true);
+              }}
+              onOpenSort={() => setOpenSort(true)}
+            />
+          </div>
+        )
       )}
     </div>
     <div className='body-area' id="capture-area">

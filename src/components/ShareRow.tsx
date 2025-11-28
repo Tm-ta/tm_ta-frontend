@@ -15,6 +15,7 @@ export default function ShareRow({ groupId }: Props) {
       <Button
         size="sm"
         shape="square"
+        type='white'
         title="공"
         onClick={() => {
           if (typeof window !== 'undefined')
@@ -24,6 +25,7 @@ export default function ShareRow({ groupId }: Props) {
       <Button
         size="sm"
         shape="square"
+        type='white'
         title="다"
         onClick={async () => {
           const blob = await captureElementToBlob('#capture-area');
@@ -50,8 +52,8 @@ export default function ShareRow({ groupId }: Props) {
         <Button
           size="md"
           shape="square"
-          title="+ 내 일정 추가하기"
-          accent="pink"
+          title="내 일정 추가하기"
+          type='icons'
           onClick={() => router.push(`/${groupId}/add`)}
         />
       </div>

@@ -1,12 +1,15 @@
-.wrap{ }
+.wrap {
+  /* margin-bottom: 24px; */
+}
+
 .header{ 
   display:flex; 
   justify-content:space-between; 
   align-items:center; 
-  margin-bottom:15px; 
-  font-size: 15.8px;
+  margin-bottom:20px; 
+  font-size: 15px;
 }
-.title{ font-weight:700; }
+.title{ font-weight:500; }
 .nav{ 
   background:none; 
   border:none; 
@@ -17,9 +20,10 @@
   grid-template-columns: repeat(7,1fr); 
   gap:6px; 
   margin:6px 0; 
-  color:#111; 
+  color:#c7c6c9; 
+  text-align:center; 
+  font-size: 13.58px; 
 }
-.weekdays > div{ text-align:center; font-size: 13.58px; color: gray; }
 
 .grid{
   display:grid;
@@ -40,11 +44,12 @@
   cursor:pointer; 
   touch-action: none; 
   font-size: 20.822px;
+  font-weight: 400;
 }
 
 /* 이번 달이 아닌 날짜 = 연회색 텍스트 */
 .cell[data-inmonth="false"] .daynum{
-  color:#C7C6C9;
+  color:#e2e1e4;
 }
 
 /* 숫자 기본 전환 */
@@ -55,6 +60,7 @@
   color: #FBB337;
   font-size: 24.99px;
   background-color: #FFF7E6;
+  font-weight: 510;
   /* 선택되더라도 오늘 점/외달 색상은 위 규칙으로 덮임 */
 }
 
@@ -78,4 +84,13 @@
 .cell:not([data-inmonth]) {
   /* pointer-events: none; */ /* 필요하면 주석 해제 */
   opacity: 0.5;
+}
+
+.cell[data-disabled="true"] .daynum {
+  color:#e2e1e4;            /* 연회색 */
+}
+
+.cell[data-disabled="true"] {
+  pointer-events: none;      /* 클릭/드래그 막기 */
+  cursor: default;
 }
