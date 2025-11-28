@@ -19,7 +19,7 @@ export default function ParticipantsPopover({
 
   return (
     <div style={{ position:'relative', alignItems:'center'}}>
-      <button className="underline" style={{border: 'none', backgroundColor: '#fff', display:'flex', alignItems:'center', fontSize:'14px', fontWeight:'700'}} onClick={()=>setOpen(v=>!v)}>
+      <button className="underline" style={{border: 'none', backgroundColor: '#fff', display:'flex', alignItems:'center', fontSize:'14px', fontWeight:'700', color:'black'}} onClick={()=>setOpen(v=>!v)}>
         <span>{names.length}{'명 참여'}</span>
         <img src={'/icons/edit.png'} style={{width:'16px', height:'16px', bottom:0, marginLeft:4}}/>
       </button>
