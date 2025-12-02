@@ -96,7 +96,7 @@ return (
       setShowNameModal(false);
     }}
     />
-    <div className='stickyTop' style={{paddingBottom:'10px'}}>
+    <div className='stickyTop' style={{paddingBottom:'18px'}}>
       <button onClick={()=> router.push(`/${groupId}`)} style={{ backgroundColor:'white', border:'none', width:'40px', height:'40px', padding: 0, display:'flex', justifyContent:'left'}}>
         <img src='/icons/left.png' style={{height:'20px'}}/>
       </button>
@@ -105,7 +105,7 @@ return (
       </div>
 
       {/* 전체 선택 / 전체 취소 버튼 */}
-      <div style={{ display:'flex', gap:8 }}>
+      <div style={{ display:'flex', gap:8, paddingBottom:'18px' }}>
         <button
           className='blankBtn'
           style={{fontWeight:600}}
