@@ -34,8 +34,10 @@
 }
 
 .cell{
-  height:45.81px;
-  width:45.81px; 
+  width: calc((100vw - 40px)/8);
+  height: calc((100vw - 40px)/8);
+  max-height:45.81px;
+  max-width:45.81px; 
   border-radius:100%; 
   display:flex; 
   align-items:center; 
@@ -54,6 +56,14 @@
 
 /* 숫자 기본 전환 */
 .daynum{ transition: color .12s, font-weight .12s; }
+
+
+
+/* 필요 시 클릭/드래그 막기 (선택 안 되게) */
+.cell:not([data-inmonth]) {
+  color:#e2e1e4;            /* 연회색 */
+}
+
 
 /* 선택 효과: 대표색 적용 */
 .cell[data-selected]{
@@ -78,12 +88,6 @@
 
 /* 오늘 날짜 표시 */
 .cell[data-today] .daynum {
-}
-
-/* 필요 시 클릭/드래그 막기 (선택 안 되게) */
-.cell:not([data-inmonth]) {
-  /* pointer-events: none; */ /* 필요하면 주석 해제 */
-  opacity: 0.5;
 }
 
 .cell[data-disabled="true"] .daynum {

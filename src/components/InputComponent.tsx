@@ -19,11 +19,11 @@ export default function InputComponent({
   kind, placeholder, maxLength, value, onChange, error
 }: InputComponentProps){
   const [focused, setFocused] = useState(false);
-
+  const textType = (kind==='input')? `닉네임은 ${maxLength}글자 이하로만 가능해요` : `${maxLength}글자 이하의 의견만 보낼 수 있어요`;
   // 내부 기본 검증(외부 error가 있으면 무시됨)
   const computedError = useMemo(()=>{
     // if (value.length === 0) return '의견을 입력해주세요!';
-    if (value.length > maxLength) return `${maxLength}글자 이하의 의견만 보낼 수 있어요`;
+    if (value.length > maxLength) return textType;
     return null;
   }, [value, maxLength]);
 
